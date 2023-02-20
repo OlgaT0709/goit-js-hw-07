@@ -37,8 +37,12 @@ function onPreviewClick(event) {
     const originalUrl = event.target.dataset.source;
 
     lightbox = basicLightbox.create(`
-      <img src="${originalUrl}">
-    `);
+    <div class="modal">
+        <p>
+             <img src="${originalUrl}">
+        </p>
+    </div>
+`);
     lightbox.show();
 
     window.addEventListener('keydown', onEscaprPress);
