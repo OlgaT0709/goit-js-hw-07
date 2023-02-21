@@ -44,16 +44,22 @@ function onPreviewClick(event) {
     </div>
 `);
     lightbox.show();
-
-    window.addEventListener('keydown', onEscaprPress);
-        
-};
-
-function onEscaprPress(event) {
-    if (event.code === "Escape" && lightbox !== null) {
-        lightbox.close();
-        window.removeEventListener('keydown', onEscaprPress);
-    }
+    //  window.addEventListener('keydown', onEscaprPress);
+    // вірно:
+    // if (lightbox) {
+    //     lightbox.element().addEventListener('keydown', onEscapePress);
+    // }
+    // сучасний варіант:
+    lightbox?.element()?.addEventListener('keydown', onEscapePress);
+    
 }
+
+function onEscapePress(event) {
+  if (event.code === "Escape" && lightbox !== null) {
+    lightbox.element().removeEventListener('keydown', onEscapePress);
+    lightbox.close();
+  }
+}
+
 
 
