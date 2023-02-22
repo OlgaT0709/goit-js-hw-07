@@ -37,26 +37,35 @@ function onPreviewClick(event) {
     const originalUrl = event.target.dataset.source;
 
     lightbox = basicLightbox.create(`
-    <div class="modal">
-        <p>
-             <img src="${originalUrl}">
-        </p>
-    </div>
-`);
-    lightbox.show();
-    //  window.addEventListener('keydown', onEscaprPress);
-    // вірно:
+  <div class="modal">
+      <p>
+           <img src="${originalUrl}">
+      </p>
+  </div>`,
+        {
+  onShow: () => {
+    window.addEventListener('keydown', onEscapePress);
+  },
+  onClose: () => {
+    window.removeEventListener('keydown', onEscapePress);
+  }
+});
+    
+       lightbox.show();
+
+    //  window.addEventListener('keydown', onEscapePress);
+    // 
     // if (lightbox) {
     //     lightbox.element().addEventListener('keydown', onEscapePress);
     // }
-    // сучасний варіант:
-    lightbox?.element()?.addEventListener('keydown', onEscapePress);
+    // 
+    // lightbox?.element()?.addEventListener('keydown', onEscapePress);
     
 }
 
 function onEscapePress(event) {
+  
   if (event.code === "Escape" && lightbox !== null) {
-    lightbox.element().removeEventListener('keydown', onEscapePress);
     lightbox.close();
   }
 }
